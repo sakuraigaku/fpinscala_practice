@@ -6,7 +6,13 @@ object RunSum extends App {
 
   implicit val intMonoid = IntMonoid
 
-  val result: Int = sum(List(1, 2, 3, 4))
+  val multiMonoid: Monoid[Int] = new Monoid[Int] {
+    override def mapend(a1: Int, a2: Int): Int = a1 * a2
+
+    override def mzero: Int = 1
+  }
+
+  val result: Int = sum(List(1, 2, 3, 4))(multiMonoid)
 
   print(result)
 }
